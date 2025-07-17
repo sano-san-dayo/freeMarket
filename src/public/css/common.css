@@ -1,0 +1,21 @@
+html,
+body {
+    height: 100%;
+}
+
+
+.header {
+    display: grid;
+    background-color: #000000;
+    padding: 16px 8px;
+    height: 80px;
+}
+
+/* コンテンツ */
+.content__heading {
+    text-align: center;
+    font-weight: 700;
+    font-size: 36x;
+    font-family: Inter;
+    color: #000000;
+}
