@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+// 2025/07/20 下記2行追加
+use Laravel\Fortify\Contracts\RegisterResponse;
+use App\Actions\Fortify\RegisterResponse as CustomRegisterResponse;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,6 +18,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        // 2025/07/20 下記１行追加
+        $this->app->singleton(RegisterResponse::class, CustomRegisterResponse::class);
     }
 
     /**

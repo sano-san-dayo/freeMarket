@@ -31,10 +31,27 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+        /* 2025/07/21 以下変更 & 追加 */
+        // return User::create([
+        //     'name' => $input['name'],
+        //     'email' => $input['email'],
+        //     'password' => Hash::make($input['password']),
+        // ]);
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        // // 登録イベント（認証メール送信）
+        // event(new Registered($user));
+
+        // // 登録後ログインさせる
+        // Auth::login($user);
+
+        // メール認証通知を送信
+        $user->sendEmailVerificationNotification();
+        
+        return $user;
     }
 }

@@ -3,6 +3,11 @@ body {
     height: 100%;
 }
 
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 
 .header {
     display: grid;
@@ -11,11 +16,16 @@ body {
     height: 80px;
 }
 
+.header__inner {
+    padding: 10px 15px;
+    max-width: 1230px;
+}
+
 /* コンテンツ */
 .content__heading {
     text-align: center;
     font-weight: 700;
-    font-size: 36x;
+    font-size: 36px;
     font-family: Inter;
     color: #000000;
 }

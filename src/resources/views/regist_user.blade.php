@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.only_logo')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 @endsection
 
 @section('content')
-<h2 class="content__heading">ユーザ登録</h2>
+<h2 class="content__heading">会員登録</h2>
 <div class="register-form__inner">
-    <form class="regist-form__form" action="/register" method="post">
+    <form class="register-form__form" action="/register" method="post">
         @csrf
         <div class="register-form__group">
             <label class="register-form__label" for="name">ユーザー名</label>

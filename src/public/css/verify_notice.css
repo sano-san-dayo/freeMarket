@@ -1,0 +1,32 @@
+.verify-notice__innser {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+}
+
+.verify-notice__message {
+    font-weight: 700;
+    font-size: 24px;
+    color: #000000;
+}
+
+.verify-notice__butto-verify {
+    background-color: #d9d9d9;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    margin-top: 30px;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.verify-notice__button-resend {
+    color: #0073cc;
+    background-color: #ffffffff;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 20px;
+    border: none;
+    margin-top: 30px;
+}

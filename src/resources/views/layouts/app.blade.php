@@ -11,8 +11,12 @@
 <body>
     <div class="app">
         <header class="header">
-            <div header-logo>
-                <img class="header-logo" src="{{ asset('images/logo.svg') }}">
+            <div class="header__inner">
+                <img class="header__logo" src="{{ asset('images/logo.svg') }}">
+                <form class="header-form__logout" action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button class="header-form__button" type="submit">ログアウト</button>
+                </form>
                 @yield('link')
             </div>
         </header>
