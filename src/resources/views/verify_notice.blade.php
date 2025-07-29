@@ -6,8 +6,7 @@
 
 @section('content')
 <div class="verify-notice__innser">
-    <div class="verify-notice__message">登録していただいたメールアドレスに認証メールを送付しました。</div>
-    <div class="verify-notice__message">メール認証を完了してください。</div>
+    <div class="verify-notice__message">登録していただいたメールアドレスに認証メールを送付しました。<br>メール認証を完了してください。</div>
     <div>
         <form action="http://localhost:8025" method="get">
             <button class="verify-notice__butto-verify" type="submit">認証はこちらから</button>

@@ -10,6 +10,8 @@
     font-weight: 700;
     font-size: 24px;
     color: #000000;
+    margin-top: 100px;
+    text-align: center;
 }
 
 .verify-notice__butto-verify {
@@ -19,6 +21,8 @@
     margin-top: 30px;
     font-weight: 700;
     font-size: 24px;
+    padding: 20px 50px;
+    margin-top: 50px;
 }
 
 .verify-notice__button-resend {
@@ -28,5 +32,5 @@
     font-style: Regular;
     font-size: 20px;
     border: none;
-    margin-top: 30px;
+    margin-top: 50px;
 }

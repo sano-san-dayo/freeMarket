@@ -12,12 +12,20 @@
     <div class="app">
         <header class="header">
             <div class="header__inner">
-                <img class="header__logo" src="{{ asset('images/logo.svg') }}">
-                <form class="header-form__logout" action="{{ route('logout') }}" method="post">
-                    @csrf
-                    <button class="header-form__button" type="submit">ログアウト</button>
-                </form>
-                @yield('link')
+                <div class="header__logo">
+                    <img src="{{ asset('images/logo.svg') }}">
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="なにをお探しですか?">
+                </div>
+                <nav class="header__nav">
+                    <form class="header-form__logout" action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class="header-form__button" type="submit">ログアウト</button>
+                    </form>
+                    <a class="header__mypage" href="#">マイページ</a>
+                    <a class="header__burton" href="#">出品</a>
+                </nav>
             </div>
         </header>
 
