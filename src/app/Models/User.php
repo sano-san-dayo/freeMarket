@@ -41,4 +41,13 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /* マイリスト(いいねした商品一覧) */
+    public function likes() {
+        return $this->hasMany(like::class);
+    }
+
+    public function likedProducts() {
+        return $this->belongsToMany(Product::class, 'likes');
+    }
 }

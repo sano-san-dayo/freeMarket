@@ -13,19 +13,19 @@
         <header class="header">
             <div class="header__inner">
                 <div class="header__logo">
-                    <img src="{{ asset('images/logo.svg') }}">
+                    <img class="logo" src="{{ asset('images/logo.svg') }}" alt="ロゴ">
                 </div>
-                <div class="search-box">
-                    <input type="text" placeholder="なにをお探しですか?">
+                <div class="header__search">
+                    <input class="search-box" type="text" placeholder="なにをお探しですか?">
                 </div>
-                <nav class="header__nav">
-                    <form class="header-form__logout" action="{{ route('logout') }}" method="post">
+                <div class="header__button">
+                    <form class="header__logout" action="{{ route('logout') }}" method="post">
                         @csrf
-                        <button class="header-form__button" type="submit">ログアウト</button>
+                        <button class="logout-button__submit" type="submit">ログアウト</button>
                     </form>
                     <a class="header__mypage" href="#">マイページ</a>
-                    <a class="header__burton" href="#">出品</a>
-                </nav>
+                    <a class="header__list" href="#">出品</a>
+                </div>
             </div>
         </header>
 

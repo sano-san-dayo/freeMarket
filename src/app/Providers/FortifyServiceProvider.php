@@ -56,7 +56,7 @@ class FortifyServiceProvider extends ServiceProvider
                 \Laravel\Fortify\Actions\AttemptToAuthenticate::class,
                 function ($request) {
                     // ログイン成功時の商品一覧画面へのリダイレクト
-                    return Redirect::intended('/products');
+                    return Redirect::intended('/product');
                 },
             ];
         });

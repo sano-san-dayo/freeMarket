@@ -21,17 +21,21 @@ use App\Models\User;
 |
 */
 
-Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index'])->name('index');
 // Route::get('/register', [ProfileController::class, 'create']);
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::get('/verify_notice', [VerifyController::class, 'notice']);
 // Route::get('/profile', [ProfileController::class, 'create']);
+//Route::post('/login', [ItemController::class, 'index']);
+Route::get('/product', [ItemController::class, 'index']);
+
 
 /* 2025/07/27 以下追加 */
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'create']);
     Route::post('/profile', [ProfileController::class, 'store']);
+    // Route::post('/product', [ItemController::class, 'index']);
 });
 
 Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
