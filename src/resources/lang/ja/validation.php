@@ -150,5 +150,9 @@ return [
         'name' => 'お名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'comment' => 'コメント',
+        'userName' => 'ユーザ名',
+        'zipcode' => '郵便番号',
+        'address' => '住所',
     ],
 ];

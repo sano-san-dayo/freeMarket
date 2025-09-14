@@ -13,7 +13,15 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Actions\AttemptToAuthenticate;
+use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Responses\LoginResponse;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -22,7 +30,8 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // LoginResponseを差し替え
+        $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
     }
 
     /**
@@ -46,44 +55,50 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::verifyEmailView(function () {
-            return view('profile');
+            // return view('profile');
+            return view('verify_notice');
         });
 
 
         // ログイン成功後のリダイレクト先
         Fortify::authenticateThrough(function (Request $request) {
             return [
-                \Laravel\Fortify\Actions\AttemptToAuthenticate::class,
-                function ($request) {
-                    // ログイン成功時の商品一覧画面へのリダイレクト
-                    return Redirect::intended('/product');
-                },
+                AttemptToAuthenticate::class,        // パスワードチェック
+                PrepareAuthenticatedSession::class,  // セッションにログイン情報を保存
             ];
         });
-        // ここでログイン用の RateLimiter を設定
+
+        // ログイン試行回数制限
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
             return Limit::perMinute(5)->by($email.$request->ip());
         });
 
+        // カスタムログイン処理
         Fortify::authenticateUsing(function (Request $request) {
+            // バリデーション処理
+            Validator::make($request->all(), [
+                'email'    => ['required', 'string', 'email'],
+                'password' => ['required', 'string', 'min:8'],
+            ])->validate();
+
+            // ユーザ取得
             $user = \App\Models\User::where('email', $request->email)->first();
 
             if ($user &&
-                \Hash::check($request->password, $user->password)) {
+                Hash::check($request->password, $user->password)) {
 
-                // メール未認証ユーザは弾く
+                /* メール未認証の場合、ログインは成功させる */
                 if (!$user->hasVerifiedEmail()) {
-                    throw ValidationException::withMessages([
-                        Fortify::username() => __('このアカウントはメール認証が完了していません。'),
-                    ]);
+                    session(['must_verify' => true]);
                 }
 
                 return $user;
             }
 
+            // 認証失敗
             return null;
-        });   
+        });
     }
 }
 

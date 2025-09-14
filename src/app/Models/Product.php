@@ -13,7 +13,23 @@ class Product extends Model
         'id',
     ];
 
+    /* いいね とのリレーション */
     public function likes() {
         return $this->hasMany(Likes::class);
+    }
+
+    /* コメント とのリレーション */
+    public function comments() {
+        return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');;
+    }
+
+    /* 出品者 とのリレーション */
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    /* カテゴリー とのリレーション */
+    public function categories() {
+        return $this->belongsToMany(Category::class, 'product_category', 'product_id', 'category_id');
     }
 }

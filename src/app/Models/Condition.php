@@ -13,4 +13,3 @@ class Condition extends Model
         'id',
     ];
 }
-}

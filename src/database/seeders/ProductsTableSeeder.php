@@ -17,6 +17,15 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             [
                 'user_id' => 1,
+                'name' => '腕時計',
+                'price' => 15000,
+                'brand' => 'Rolax',
+                'description' => 'スタイリッシュなデザインのメンズ腕時計',
+                'image' => 'Armani+Mens+Clock.jpg',
+                'condition' => 1,
+            ],
+            [
+                'user_id' => 3,
                 'name' => 'HDD',
                 'price' => 5000,
                 'brand' => '西芝',

@@ -1,0 +1,191 @@
+.buy-form__inner {
+    display: flex;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 50px;
+    gap: 70px;
+}
+
+/* 左側 */
+.item-info {
+    flex: 2;
+}
+
+/** 商品情報 **/
+.item-info__detail {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 50px;
+}
+
+.item-info__image {
+    width: 150px;
+    height: 150px;
+    background: #d5d5d5;
+    object-fit: cover;
+}
+
+.item__name {
+    font-weight: 700;
+    font-style: bold;
+    font-size: 30px;
+    color: #000000;
+}
+
+.item__price {
+    font-weight: 400;
+    font-style: regular;
+    font-size: 27px;
+    color: #000000;
+}
+
+/** 支払い方法 **/
+.item-info__payment {
+    margin-bottom: 60px;
+}
+
+.payment-method__title {
+    font-weight: 700;
+    font-style: bold;
+    font-size: 20px;
+    color: #000000;
+}
+
+.payment-method__form {
+    margin-left: 50px;
+}
+
+.payment-method {
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 16px;
+    color: #5f5f5f;
+    border: 1px solid #5f5f5f;
+    width: 250px;
+}
+
+/*** セレクトボックスにレ点を表示 ***/
+select,
+::picker(select) {
+    appearance: base-select;
+    color: #ffffff;
+}
+
+.payment-method__option {
+    background-color: #b1b1b1;
+}
+
+/* select option[selected] { */
+select option:checked:not(:disabled) {
+    background: #0073cc;
+    border-radius: 5px;
+}
+
+/** 送付先 **/
+.item-info__send {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.send__title-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.send__title {
+    font-weight: 700;
+    font-style: bold;
+    font-size: 20px;
+    color: #000000;
+}
+
+.modify {
+    margin-top: 20px;
+}
+
+.modify__link {
+    font-weight: 400;
+    font-style: regular;
+    font-size: 20px;
+    color: #0073cc;
+    text-decoration: none;
+}
+
+.zipcode,
+.address,
+.building {
+    font-weight: 600;
+    font-style: semi bold;
+    font-size: 20px;
+    color: #000000;
+    margin-left: 50px;
+}
+
+/* 右側 */
+.buy-info {
+    flex: 1;
+}
+
+.buy-info-box {
+    border: 1px solid #000000;
+    margin-bottom: 15px;
+}
+
+.box__row {
+    display: flex;
+    /* justify-content: space-between; */
+    justify-content: left;
+    padding: 40px;
+    border-bottom: 1px solid #000000;
+}
+
+.box__row-price {
+    font-weight: 400;
+    font-style: regular;
+    font-size: 20px;
+    color: #000000;
+    margin-right: 40px;
+}
+
+.box__row-method {
+    font-weight: 400;
+    font-style: regular;
+    font-size: 20px;
+    color: #000000;
+    margin-right: 15px;
+}
+
+.price-span,
+.payment-method-span {
+    font-weight: 400;
+    font-style: regular;
+    font-size: 24px;
+    color: #000000;
+}
+
+.buy-form__button {
+    margin-top: 30px;
+    background: #ff5555;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: 700;
+    font-style: bold;
+    font-size: 30px;
+    width: 100%;
+}
+
+.buy-form__button.disabled {
+    margin-top: 30px;
+    background: #d5d5d5;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: 700;
+    font-style: bold;
+    font-size: 30px;
+    width: 100%;
+}

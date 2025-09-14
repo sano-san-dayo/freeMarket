@@ -12,5 +12,14 @@ class Comment extends Model
     protected $guarded = [
         'id',
     ];
-}
+
+    /* コメント投稿者 とのリレーション */
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    /* コメント対象商品 とのリレーション */
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
 }

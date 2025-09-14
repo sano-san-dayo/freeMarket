@@ -12,7 +12,7 @@
     <div class="app">
         <header class="header">
             <div class="header__inner">
-                <img class="header__logo" src="{{ asset('images/logo.svg') }}">
+                <img class="header__logo" src="{{ asset('images/logo.svg') }}" alt="ロゴ" onclick="location.href='/'">
                 @yield('link')
             </div>
         </header>

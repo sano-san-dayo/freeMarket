@@ -5,23 +5,30 @@
 @endsection
 
 @section('content')
-<h2 class="content__heading">商品一覧</h2>
 <div class="product-form__inner">
     <div class="product-form__tab">
-        <!-- <label><input class="tab__input" type="radio" name="tab"selected>おすすめ</label>
-        <label><input class="tab__input" type="radio" name="tab">マイリスト</label> -->
-        <a href="{{ route('index', ['tab' => 'recommend']) }}" class="{{ $tab === 'recommend' ? 'active' :   '' }}">おすすめ</a>
-        <a href="{{ route('index', ['tab' => 'mylist']) }}" class="{{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
+        <a href="{{ route('index', ['tab' => 'recommend', 'keyword' => $keyword]) }}" class="{{ $tab === 'recommend' ? 'active' :   '' }}">おすすめ</a>
+        <a href="{{ route('index', ['tab' => 'mylist', 'keyword' => $keyword]) }}" class="{{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
     </div>
 
+    <hr>
+    
     <div class="product-form__items">
-        @forelse ($products as $product)
-            <div class="product-card">
-                <img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->name }}">
-                <div class="product-name">{{ $product->name }}</div>
+        @foreach ($products as $product)
+            <div class="product-card" onclick="location.href='/items/{{ $product->id }}'">
+                <div class="product-image">
+                    <img src="{{ asset('storage/images/items/' . $product->image) }}" alt="{{ $product->name }}">
+                    @foreach ($purchases as $purchase)
+                        @if ($product->id === $purchase->product_id)
+                            <div class="product-card__sold">sold</div>
+                        @endif
+                    @endforeach
+                </div>
+                <div class="product-name">
+                    {{ $product->name }}
+                </div>
             </div>
-        @empty  
-        @endforelse
+        @endforeach
     </div>
 </div>
 

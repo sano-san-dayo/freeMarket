@@ -12,5 +12,9 @@ class Purchase extends Model
     protected $guarded = [
         'id',
     ];
-}
+
+    /* 購入した商品と商品テーブルのリレーション */
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
 }

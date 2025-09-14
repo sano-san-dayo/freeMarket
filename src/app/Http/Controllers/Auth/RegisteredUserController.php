@@ -30,8 +30,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user)); // 認証メール送信
 
-        // return redirect()->route('verification.notice');
-        // return redirect()->route('verify_notice');
         return view('verify_notice');
     }
 }

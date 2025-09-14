@@ -17,6 +17,11 @@
             @csrf
             <button class="verify-notice__button-resend" type="submit">認証メールを再送する</button>
         </form>
+        @if (session('message'))
+            <div class="resend-message">
+                {{ session('message') }}
+            </div>
+        @endif
     </div>
 </div>
 @endsection

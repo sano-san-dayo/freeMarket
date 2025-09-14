@@ -13,18 +13,27 @@
         <header class="header">
             <div class="header__inner">
                 <div class="header__logo">
-                    <img class="logo" src="{{ asset('images/logo.svg') }}" alt="ロゴ">
+                    <img class="logo" src="{{ asset('images/logo.svg') }}" alt="ロゴ" onclick="location.href='/'">
                 </div>
                 <div class="header__search">
-                    <input class="search-box" type="text" placeholder="なにをお探しですか?">
+                    <form action="/product" method="get">
+                        @csrf
+                        <input type="hidden" name="tab" value="{{ $tab ?? 'recommend' }}">
+                        <input class="search-box" type="text" name="keyword" value="{{ request('keyword') }}" placeholder="なにをお探しですか?" onkeydown="if(event.key === 'Enter'){ this.form.submit }">
+                    </form>
                 </div>
                 <div class="header__button">
-                    <form class="header__logout" action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <button class="logout-button__submit" type="submit">ログアウト</button>
-                    </form>
-                    <a class="header__mypage" href="#">マイページ</a>
-                    <a class="header__list" href="#">出品</a>
+                    @auth
+                        <form class="header__logout" action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="logout-button__submit" type="submit">ログアウト</button>
+                        </form>
+                    @endauth
+                    @guest
+                        <a class="login_link" href="{{ route('login') }}">ログイン</a>
+                    @endguest
+                    <a class="header__mypage" href="{{ route('mypage') }}">マイページ</a>
+                    <a class="header__list" href="{{ route('sell') }}">出品</a>
                 </div>
             </div>
         </header>

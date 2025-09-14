@@ -52,6 +52,16 @@ php artisan storage:link
 ## ER図
 ![alt](ER.png)
 
+## 登録済ユーザ
+以下のユーザを登録済みです。
+※全ユーザメール認証済。
+| ユーザ名 | メールアドレス  | パスワード |
+| ------- | -------------- | --------- |
+| user01  | user01@foo.bar | 11111111  |
+| user02  | user02@foo.bar | 11111111  |
+| user03  | user03@foo.bar | 11111111  |
+| user04  | user04@foo.bar | 11111111  |
+
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/

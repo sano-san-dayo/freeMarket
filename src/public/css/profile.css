@@ -1,0 +1,105 @@
+.profile-form__inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-left: 15%;
+}
+
+.user-info__img-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+}
+
+.user__img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.img-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+}
+
+.user-info__name {
+    font-weight: 700;
+    font-style: bold;
+    font-size: 36px;
+    color: #000000;
+}
+
+.edit-form {
+    margin-right: 10%;
+}
+
+.button__submit {
+    border: 2px solid #ff5555;
+    border-radius: 10px;
+    font-weight: 700;
+    font-style: bold;
+    font-size: 26px;
+    color: #ff5555;
+    background: #ffffff;
+}
+
+.profile-form__tab {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-form__tab a {
+    text-decoration: none;
+    padding: 10px 20px;
+    color: #5f5f5f;
+    font-weight: 700;
+    font-size: 24px;
+    border-bottom: 2px solid transparent;
+}
+
+.profile-form__tab a.active {
+    font-weight: 700;
+    color: #ff0000;
+}
+
+.profile-form__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+}
+
+.product-card {
+    width: 290px;
+    height: 320px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    border-radius: 8px;
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.product-image {
+    position: relative;
+    display: inline-block;
+}
+
+.product-name {
+    margin-top: 10px;
+    font-size: 1rem;
+}
