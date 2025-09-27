@@ -110,7 +110,8 @@
     border-radius: 4px;
     border: none;
     width: 70%;
-    height: auto;
+    /* height: auto; */
+    height: 50px;
 }
 
 .detail-form__buy-button.disabled {
@@ -285,7 +286,8 @@
     font-weight: 700;
     font-style: bold;
     font-size: 25px;
-    height: auto;
+    /* height: auto; */
+    height: 50px;
 }
 
 .comment__submit.disabled {

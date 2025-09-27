@@ -7,81 +7,83 @@
 @section('content')
 <h2 class="content__heading">プロフィール設定</h2>
 <div class="regist-profile-form__inner">
-    <div class="regist-profile-image">
-        @if ($fileName)
-            <img class="user__img" src="{{ asset('storage/images/profile/' . $fileName) }}" alt="ユーザ">
-        @elseif ($profile && $profile->image)
-            <img class="user__img" src="{{ asset('storage/images/profile/' . $profile->image) }}" alt="ユーザ">
-        @else
-            <div class="img-circle"></div>
-        @endif
-        <form class="profile-image__form" id="profile-image__upload" action="/mypage/profile/upload" method="post" enctype="multipart/form-data">
+    <form action="/mypage/regist_profile" method="post" enctype="multipart/form-data">
+        <div class="regist-profile-image">
+            @if (session('fileName'))
+                <img class="user__img" src="{{ asset('storage/images/profile/' . session('fileName')) }}" alt="ユーザ">
+            @elseif ($profile && $profile->image)
+                <img class="user__img" src="{{ asset('storage/images/profile/' . $profile->image) }}" alt="ユーザ">
+            @else
+                <div class="img-circle"></div>
+            @endif
+            <div class="profile-image__form">
+                @csrf
+                <label class="profile-image__button" for="image-file">画像を選択する</label>
+                <input class="hidden-input" type="file" name="image-file" id="image-file" onchange="this.form.submit()">
+                <p class="profile-form__error-message">
+                    @error('image-file')
+                    {{ $message }}
+                    @enderror
+                </p>
+            </div>
+        </div>
+        <div class="profile-form__form">
             @csrf
-            <label class="profile-image__button" for="image-file">画像を選択する</label>
-            <input class="hidden-input" type="file" name="image-file" id="image-file" onchange="document.getElementById('profile-image__upload').submit()">
-            <p class="profile-form__error-message">
-                @error('image-file')
-                {{ $message }}
-                @enderror
-            </p>
-        </form>
-    </div>
-    <form class="profile-form__form" action="/mypage/regist_profile" method="post">
-        @csrf
-        <div class="profile-form__group">
-            <label class="profile-form__label" for="name">ユーザー名</label>
-            @if ($user)
-                <input class="profile-form__input" type="text" name="userName" value="{{ old('userName', $user->name) }}">
-            @else
-                <input class="profile-form__input" type="text" name="name">
-            @endif
-            <p class="profile-form__error-message">
-                @error('userName')
-                {{ $message }}
-                @enderror
-            </p>
+            <div class="profile-form__group">
+                <label class="profile-form__label" for="name">ユーザー名</label>
+                @if ($user)
+                    <input class="profile-form__input" type="text" name="userName" value="{{ old('userName', $user->name) }}">
+                @else
+                    <input class="profile-form__input" type="text" name="name">
+                @endif
+                <p class="profile-form__error-message">
+                    @error('userName')
+                    {{ $message }}
+                    @enderror
+                </p>
+            </div>
+            <div class="profile-form__group">
+                <label class="profile-form__label" for="zipcode">郵便番号</label>
+                @if ($profile)
+                    <input class="profile-form__input" type="text" name="zipcode" value="{{ old('zipcode', $profile->zipcode) }}">
+                @else
+                    <input class="profile-form__input" type="text" name="zipcode" value="{{ old('zipcode') }}">
+                @endif
+                <p class="profile-form__error-message">
+                    @error('zipcode')
+                    {{ $message }}
+                    @enderror
+                </p>
+            </div>
+            <div class="profile-form__group">
+                <label class="profile-form__label" for="address">住所</label>
+                @if ($profile)
+                    <input class="profile-form__input" type="text" name="address" value="{{ old('address', $profile->address) }}">
+                @else
+                    <input class="profile-form__input" type="text" name="address" value="{{ old('address') }}">
+                @endif
+                <p class="profile-form__error-message">
+                    @error('address')
+                    {{ $message }}
+                    @enderror
+                </p>
+            </div>
+            <div class="profile-form__group">
+                <label class="profile-form__label" for="building">建物名</label>
+                @if ($profile && $profile->building)
+                    <input class="profile-form__input" type="text" name="building" value="{{ old('building', $profile->building) }}">
+                @else
+                    <input class="profile-form__input" type="text" name="building" value="{{ old('building') }}">
+                @endif
+                <p class="profile-form__error-message">
+                    @error('building')
+                    {{ $message }}
+                    @enderror
+                </p>
+            </div>
+            <input type="hidden" name="fileName" value="{{ session('fileName') }}">
+            <button class="profile-form__button" type="submit" name="action" value="update">更新する</button>
         </div>
-        <div class="profile-form__group">
-            <label class="profile-form__label" for="zipcode">郵便番号</label>
-            @if ($profile)
-                <input class="profile-form__input" type="text" name="zipcode" value="{{ old('zipcode', $profile->zipcode) }}">
-            @else
-                <input class="profile-form__input" type="text" name="zipcode" value="{{ old('zipcode') }}">
-            @endif
-            <p class="profile-form__error-message">
-                @error('zipcode')
-                {{ $message }}
-                @enderror
-            </p>
-        </div>
-        <div class="profile-form__group">
-            <label class="profile-form__label" for="address">住所</label>
-            @if ($profile)
-                <input class="profile-form__input" type="text" name="address" value="{{ old('address', $profile->address) }}">
-            @else
-                <input class="profile-form__input" type="text" name="address" value="{{ old('address') }}">
-            @endif
-            <p class="profile-form__error-message">
-                @error('address')
-                {{ $message }}
-                @enderror
-            </p>
-        </div>
-        <div class="profile-form__group">
-            <label class="profile-form__label" for="building">建物名</label>
-            @if ($profile && $profile->building)
-                <input class="profile-form__input" type="text" name="building" value="{{ old('building', $profile->building) }}">
-            @else
-                <input class="profile-form__input" type="text" name="building" value="{{ old('building') }}">
-            @endif
-            <p class="profile-form__error-message">
-                @error('building')
-                {{ $message }}
-                @enderror
-            </p>
-        </div>
-        <input type="hidden" name="fileName" value="{{ $fileName }}">
-        <button class="profile-form__button" type="submit">更新する</button>
     </form>
 </div>
 @endsection

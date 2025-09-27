@@ -9,7 +9,6 @@ use App\Models\Profile;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Purchase;
-use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -67,8 +66,8 @@ class ProfileController extends Controller
             'image-file' =>  'required | file | max:2048',
         ]);
         $ext = $request->file('image-file')->getClientOriginalExtension();
-        if (!in_array(strtolower($ext), ['jpg','jpeg','png','gif'])) {
-            return back()->withErrors(['image-file' => '対応していないファイル形式です']);
+        if (!in_array(strtolower($ext), ['jpg','jpeg','png'])) {
+            return back()->withErrors(['image-file' => '「.png」または「.jpg」形式でアップロードしてください']);
         }
     
         /* 画像ファイルを保存 */
@@ -83,27 +82,70 @@ class ProfileController extends Controller
     }
 
     /* プロフィール情報登録・更新 */
-    public function store(ProfileRequest $request)
+    // public function store(ProfileRequest $request)
+    public function store(Request $request)
     {
-        /* ユーザ名設定 */
-        $user = auth()->user();
-        $user->name = $request->userName;
+        /* 画像ファイル選択時 */
+        if ($request->hasFile('image-file')) {
+            /* 表示の更新のみでDB登録・更新は行わない */
 
-        /* プロフィール情報設定 */
-        $profile = Profile::where('user_id', $user->id)->first();
-        if (is_null($profile)) {
-            $profile = new Profile();
+            /* ディレクトリ名 */
+            $dir = 'images/profile';
+
+            /* ユーザ取得 */
+            $user = Auth::user();
+
+            /* バリデーション */
+            $request->validate([
+                'image-file' =>  'required | file | max:2048',
+            ]);
+            $ext = $request->file('image-file')->getClientOriginalExtension();
+            if (!in_array(strtolower($ext), ['jpg','jpeg','png'])) {
+                return back()->withErrors(['image-file' => '「.png」または「.jpg」形式でアップロードしてください']);
+            }
+        
+            /* 画像ファイルを保存 */
+            $file = $request->file('image-file');
+            $fileName = $file->getClientOriginalName();
+            Storage::disk('public')->putFileAs($dir, $file, $fileName);
+
+            // /* プロフィール情報取得 */
+            // $profile = Profile::where('user_id', $user->id)->first();
+
+            return back()->withInput()->with('fileName', $fileName);
         }
-        $profile->user_id = $user->id;
-        $profile->zipcode = $request->zipcode;
-        $profile->address = $request->address;
-        $profile->building = $request->building; 
-        $profile->image = $request->fileName;
 
-        /* DB登録・更新 */
-        $user->save();
-        $profile->save();
+        /* 「更新する」ボタン押下時 */
+        if ($request->action === 'update') {
+            /* バリデーション */
+            $request->validate([
+                'userName' => 'required | string | max:255',
+                'zipcode'  => 'required | string | size:8',
+                'address'  => 'required | string | max:255',
+                'building' => 'nullable | string | max:255',
+            ]);
 
-        return redirect()->route('mypage')->with('status', 'プロフィール登録が完了しました');
+            /* ユーザ名設定 */
+            $user = auth()->user();
+            $user->name = $request->userName;
+
+            /* プロフィール情報設定 */
+            $profile = Profile::where('user_id', $user->id)->first();
+            if (is_null($profile)) {
+                $profile = new Profile();
+            }
+            $profile->user_id = $user->id;
+            $profile->zipcode = $request->zipcode;
+            $profile->address = $request->address;
+            $profile->building = $request->building; 
+            $profile->image = $request->fileName;
+
+            /* DB登録・更新 */
+            $user->save();
+            $profile->save();
+
+            return redirect()->route('mypage')->with('status');
+
+        }
     }
 }

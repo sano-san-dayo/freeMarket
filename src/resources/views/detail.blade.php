@@ -11,7 +11,6 @@
     </div>
 
     <div class="detail-info">
-        button = {{ $button }}
         <div class="detail-form__buy">
             <div class="item-name">{{ $product->name }}</div>
             <div class="brand">{{ $product->brand }}</div>
@@ -98,7 +97,7 @@
                 @csrf
                 <div class="title-comment-form">商品へのコメント</div>
                 <div class="input-comment-group">
-                    <textarea class="comment__input" name="comment" cols="50" rows="5"></textarea>
+                    <textarea class="comment__input" name="comment" cols="50" rows="10"></textarea>
                     @if ($errors->has('comment'))
                         <div class="comment-error">
                             {{ $errors->FIRST('comment') }}

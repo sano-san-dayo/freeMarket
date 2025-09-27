@@ -23,8 +23,13 @@ class ItemRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'comment' => 'required | max:255',
-        ];
+        /* バリデーションルール用配列 */
+        $rules = [];
+
+        if ($this->has('comment')) {
+            $rules['comment'] = 'required | max:255';
+        }
+
+        return $rules;
     }
 }

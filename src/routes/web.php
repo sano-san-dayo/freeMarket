@@ -41,7 +41,7 @@ Route::post('/resend', function (Request $request) {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'show'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('regist_profile');
-    Route::post('/mypage/profile/upload',[ProfileController::class, 'upload']);
+    // Route::post('/mypage/profile/upload',[ProfileController::class, 'upload']);
     Route::post('/mypage/regist_profile', [ProfileController::class, 'store']);
     Route::post('/product', [ItemController::class, 'index']);
     Route::get('/purchase/{product_id}', [PurchaseController::class, 'show'])->where('product_id', '[0-9]+')->name('purchase');

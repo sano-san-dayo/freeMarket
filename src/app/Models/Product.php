@@ -15,12 +15,12 @@ class Product extends Model
 
     /* いいね とのリレーション */
     public function likes() {
-        return $this->hasMany(Likes::class);
+        return $this->hasMany(Like::class);
     }
 
     /* コメント とのリレーション */
     public function comments() {
-        return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');;
+        return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
     }
 
     /* 出品者 とのリレーション */
@@ -31,5 +31,10 @@ class Product extends Model
     /* カテゴリー とのリレーション */
     public function categories() {
         return $this->belongsToMany(Category::class, 'product_category', 'product_id', 'category_id');
+    }
+
+    /* 状態とのリレーション */
+    public function condition_string() {
+        return $this->belongsTo(Condition::class, 'condition');
     }
 }
