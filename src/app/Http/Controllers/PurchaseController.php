@@ -118,11 +118,11 @@ class PurchaseController extends Controller
         /* 商品情報 */
         $lineItems = [[
             'price_data' => [
-                'currency' => 'jpy',
+                'currency'     => 'jpy',
                 'product_data' => [
                     'name' => $request->name,
                 ],
-                'unit_amount' => $request->price,
+                'unit_amount'  => $request->price,
             ],
             'quantity' => 1,
         ]];
@@ -130,12 +130,10 @@ class PurchaseController extends Controller
         /* Stripe Checkout Session 作成 */
         $session = CheckoutSession::create([
             'payment_method_types' => [$paymentMethod],
-            'line_items' => $lineItems,
-            'mode' => 'payment',
-            'success_url' => route('index'),
-            'cancel_url' => route('index'),
-            // 'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
-            // 'cancel_url' => route('checkout.cancel'),
+            'line_items'           => $lineItems,
+            'mode'                 => 'payment',
+            'success_url'          => route('mypage', ['tab' => 'purchase']),
+            'cancel_url'           => route('item.detail', ['product_id' => $product_id]),
         ]);
         
         return redirect($session->url);

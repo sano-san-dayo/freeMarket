@@ -23,25 +23,17 @@ use App\Models\User;
 |
 */
 
+/* 未ログインでも表示可能 */
 Route::get('/', [ItemController::class, 'index'])->name('index');
-// Route::get('/register', [ProfileController::class, 'create']);
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
-Route::get('/verify_notice', [VerifyController::class, 'notice'])->name('verification.notice');
-// Route::get('/profile', [ProfileController::class, 'create']);
-//Route::post('/login', [ItemController::class, 'index']);
 Route::get('/product', [ItemController::class, 'index'])->name('product');
 Route::get('/items/{product_id}', [ItemController::class, 'getDetail'])->name('item.detail');
-Route::post('/resend', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', '認証メールを再送しました');
-})->middleware(['auth', 'throttle:6,1']);
 
-
+/* ログイン済 かつ メール認証済 */
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'show'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('regist_profile');
-    // Route::post('/mypage/profile/upload',[ProfileController::class, 'upload']);
     Route::post('/mypage/regist_profile', [ProfileController::class, 'store']);
     Route::post('/product', [ItemController::class, 'index']);
     Route::get('/purchase/{product_id}', [PurchaseController::class, 'show'])->where('product_id', '[0-9]+')->name('purchase');
@@ -55,28 +47,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/sell/upload', [ItemController::class, 'upload_img']);
 });
 
-/* メール認証後プロフィール登録画面へ遷移 */
-Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
-    $user = User::find($id);
-
-    if (!$user) {
-        abort(404, 'User not found.');
-    }
-
-    // ハッシュ検証（メールアドレスの SHA1 値と比較）
-    if (!hash_equals((string) $hash, sha1($user->email))) {
-        abort(403, 'Invalid verification link.');
-    }
-
-    // 未認証なら認証状態にする
-    if (!$user->hasVerifiedEmail()) {
-        $user->markEmailAsVerified();
-        event(new \Illuminate\Auth\Events\Verified($user));
-    }
-
-    // 自動ログイン
-    Auth::login($user);
-
-    return redirect('/mypage/profile');  // プロフィール登録画面へ
-})->middleware(['signed'])->name('verification.verify');
-
+/* ログイン済 (メール認証未でも可) */
+Route::middleware(['auth'])->group(function () {
+    Route::get('/verify_notice', [VerifyController::class, 'notice'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [RegisteredUserController::class, 'success_verify'])->middleware(['signed'])->name('verification.verify');
+    /* メール再送は1分間に6回まで */
+    Route::post('/resend', [RegisteredUserController::class, 'resend'])->middleware(['throttle:6,1']);
+});

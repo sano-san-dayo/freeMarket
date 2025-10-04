@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Condition;
 use App\Models\User;
+use App\Models\Profile;
 use App\Http\Requests\ItemRequest;
 
 class ItemController extends Controller
@@ -27,12 +28,7 @@ class ItemController extends Controller
         $user = Auth::user();
 
         /* 初期表示するタブを設定 */
-        if ($keyword) {
-            $tab = $request->get('tab', 'recommend');
-        } else {
-            /* keywordが未指定の場合、ログイン有無で初期タブを変更 */
-            $tab = $request->query('tab', $user ? 'mylist' : 'recommend');
-        }
+        $tab = $request->get('tab', 'recommend');
 
         if (!$user && $tab === 'mylist') {
             /* 空のコレクション */
@@ -79,13 +75,15 @@ class ItemController extends Controller
         $purchase = Purchase::where('product_id', $product_id)->get();
     
         /* 商品詳細画面のボタン制御用 */
-        $from = $request->query('from');
-        if ($from === 'sale') {
-            /* 出品した商品の場合 */
-            $button = 1;
-        } elseif ($from === 'purchase') {
-            /* 購入した商品の場合 */
+        /*    0 : 購入手続きへ:活性、  コメントを送信:活性   */
+        /*    1 : 購入手続きへ:非活性、コメントを送信:活性   */
+        /*    2 : 購入手続きへ:非活性、コメントを送信:非活性 */
+        if(($purchase->count() != 0) || !$user) {
+            /* 購入済 */
             $button = 2;
+        } elseif ($product->user_id === $user->id) {
+            /* 自分が出品した商品 */
+            $button = 1;
         } else {
             $button = 0;
         }
@@ -125,7 +123,21 @@ class ItemController extends Controller
         }
 
         $purchase = Purchase::where('product_id', $product_id)->get();
-        $button = 0;
+
+        /* 商品詳細画面のボタン制御用 */
+        /*    0 : 購入手続きへ:活性、  コメントを送信:活性   */
+        /*    1 : 購入手続きへ:非活性、コメントを送信:活性   */
+        /*    2 : 購入手続きへ:非活性、コメントを送信:非活性 */
+        if($purchase->count() != 0) {
+            /* 購入済 */
+            $button = 2;
+        } elseif ($product->user_id === $user->id) {
+            /* 自分が出品した商品 */
+            $button = 1;
+            $liked = 0;
+        } else {
+            $button = 0;
+        }
 
         return view('detail', compact('product', 'condition', 'categories', 'like_count', 'liked', 'comments', 'purchase', 'button'));
     }
@@ -180,23 +192,23 @@ class ItemController extends Controller
         /* バリデーション */
         $request->validate(
             [
-                'name' => 'required | string | max:255',
-                'brand' => 'required | string | max:255',
-                'condition' => 'required',
+                'name'        => 'required | string | max:255',
+                'brand'       => 'nullable | string | max:255',
+                'condition'   => 'required',
                 'description' => 'required | string | max:255',
-                'price' => 'required | numeric',
-                'image' => 'required | string | max:255',
-                'categories' => 'required',
+                'price'       => 'required | numeric',
+                'image'       => 'required | string | max:255',
+                'categories'  => 'required',
             ],
             [
-                'name.required'  => '商品名を入力してください',
-                'brand.required' => 'ブランド名を入力してください',
-                'condition.required' => '商品の状態を選択してください',
+                'name.required'        => '商品名を入力してください',
+                'condition.required'   => '商品の状態を選択してください',
                 'description.required' => '商品の説明を入力してください',
-                'price.required' => '販売価格を入力してください',
-                'price.numeric' => '販売価格は数値で入力してください',
-                'image.required' => '画像を選択してください',
-                'categories.required' => 'カテゴリーを1つ以上選択してください',
+                'description.max'      => '商品の説明は255文字以下で入力してください',
+                'price.required'       => '販売価格を入力してください',
+                'price.numeric'        => '販売価格は数値で入力してください',
+                'image.required'       => '画像を選択してください',
+                'categories.required'  => 'カテゴリーを1つ以上選択してください',
             ]        
         );
 
@@ -219,16 +231,15 @@ class ItemController extends Controller
         /* 商品-カテゴリー 中間テーブル更新 */
         $product->categories()->sync($request->input('categories'));
 
-        /* 商品一覧画面表示用の各種情報設定 */
-        $keyword = null;
-        $products = $user->likedProducts()->where('name', 'like', "%{$keyword}%")->get();
-        $tab = 'mylist';
-        $purchases = Purchase::all();
-    
-        /* セッションから画像ファイル名を削除 */
-        session()->forget('fileName');
+        /* プロファイル画面表示用の各種情報設定 */
+        $profile = Profile::where('user_id', $user->id)->first();
+        $tab = "sele";
+        $products = Product::where('user_id', $user->id)->get();
 
-        return view('product', compact('products', 'tab', 'keyword', 'purchases'));
+        /* セッションから画像ファイル名を削除 */
+        $request->session()->forget('fileName');
+
+        return view('/mypage/profile', compact('user', 'profile', 'tab', 'products'));
     }
 
     /* 商品画像設定 */

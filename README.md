@@ -62,6 +62,8 @@ php artisan storage:link
 | user03  | user03@foo.bar | 11111111  |
 | user04  | user04@foo.bar | 11111111  |
 
+## 商品情報
+|商品名|
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/

@@ -36,7 +36,7 @@ class ProfileController extends Controller
     }
     
     /* プロフィール編集画面表示 */
-    public function edit() {
+    public function edit(Request $request) {
         /* ユーザ情報取得 */
         $user = Auth::user();
 
@@ -48,7 +48,9 @@ class ProfileController extends Controller
             $fileName = $profile->image;
         }
 
-        return view('mypage.regist_profile', compact('user', 'profile', 'fileName'));
+        $redirect_from = $request->redirect_from;
+
+        return view('mypage.regist_profile', compact('user', 'profile', 'fileName', 'redirect_from'));
     }
 
     /* ユーザ画像更新 */
@@ -101,7 +103,7 @@ class ProfileController extends Controller
             ]);
             $ext = $request->file('image-file')->getClientOriginalExtension();
             if (!in_array(strtolower($ext), ['jpg','jpeg','png'])) {
-                return back()->withErrors(['image-file' => '「.png」または「.jpg」形式でアップロードしてください']);
+                return back()->withInput()->withErrors(['image-file' => '「.png」または「.jpg」形式でアップロードしてください']);
             }
         
             /* 画像ファイルを保存 */
@@ -117,6 +119,9 @@ class ProfileController extends Controller
 
         /* 「更新する」ボタン押下時 */
         if ($request->action === 'update') {
+            /* バリデーションエラーに備えてファイル名をセッションへ保存 */
+            session()->put('fileName', $request->fileName);
+
             /* バリデーション */
             $request->validate([
                 'userName' => 'required | string | max:255',
@@ -144,8 +149,14 @@ class ProfileController extends Controller
             $user->save();
             $profile->save();
 
-            return redirect()->route('mypage')->with('status');
+            /* セッションに保存した画像ファイル名を削除 */
+            session()->forget('fileName');
 
+            if ($request->redirect_from === 'profile') {
+                return redirect()->route('mypage')->with('status');
+            } else {
+                return redirect()->route('index');
+            }
         }
     }
 }

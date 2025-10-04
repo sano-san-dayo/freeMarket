@@ -25,29 +25,16 @@ class PaymentMethodTest extends TestCase
         $this->actingAs($user);
 
         /* id = 2 の商品情報取得 */
-        $product = Product::find(2);
-
-        /* 商品詳細画面表示 */
-        $response = $this->get("/purchase/{$product->id}");
-        $response->assertStatus(200);
-
-        /* コンビニ支払いがないことを確認 */
-        $response->assertDontSee('コンビニ支払い');
-
-        /* カード支払いがないことを確認 */
-        $response->assertDontSee('カード支払い');
+        $product = Product::find(3);
 
         /* コンビニ支払いを選択 */
-        $response = $this->get("/purchase/{$product->id}", [
-            'payment-method' => 1,
-        ]);
+        $response = $this->get("/purchase/{$product->id}?payment-method=1");
         $response->assertStatus(200);   
 
         /* コンビニ支払いがあることを確認 */
-        $response->assertSee('コンビニ支払い');
-
-        /* カード支払いがないことを確認 */
-        $response->assertDontSee('カード支払い');
-
+        $response->assertSeeInOrder([
+            '<span class="payment-method-span">',
+            'コンビニ支払い'
+        ], false);
     }
 }

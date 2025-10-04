@@ -35,10 +35,6 @@ class PurchaseTest extends TestCase
         $count = Purchase::where('product_id', $product->id)->count();
         $this->assertEquals(0, $count);
 
-        // /* 商品詳細画面表示 */
-        // $response = $this->get("/items/{$product->id}");
-        // $response->assertStatus(200);
-
         /* 商品購入 */
          $response = $this->post("/purchase/{$product->id}", [
             'paymentMethod' => '1',

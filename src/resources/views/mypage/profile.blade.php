@@ -16,6 +16,7 @@
             <div class="user-info__name">{{ $user->name }}</div>
         </div>
         <form class="edit-form" action="/mypage/profile" method="get">
+            <input type="hidden" name="redirect_from" value="profile">
             <button class="button__submit">プロフィールを編集</button>
         </form>
     </div>

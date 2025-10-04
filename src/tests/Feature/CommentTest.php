@@ -16,6 +16,7 @@ class CommentTest extends TestCase
     /* コメント送信(ログインユーザ) */
     public function test_comment_01() {
         /* DBへデータ投入 */
+        $this->artisan('migrate:refresh');
         $this->seed();
 
         /* ユーザ情報取得 */

@@ -1,7 +1,10 @@
 .regist-profile-form__inner {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
+    width: 50%;
+    max-width: 1200px;
+    margin: 30px auto;
 }
 
 .regist-profile-image {

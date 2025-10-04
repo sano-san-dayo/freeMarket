@@ -46,8 +46,8 @@ class MyListTest extends TestCase
         /* ログイン状態にする */
         $this->actingAs($user1);
 
-        /* マイページ表示 */
-        $response = $this->get('/product');
+        /* マイリスト表示 */
+        $response = $this->get('/product/?tab=mylist');
 
         /* マイリストにユーザ1がいいねした商品を表示することを確認 */
         $response->assertSeeText($product1->name);
@@ -88,8 +88,8 @@ class MyListTest extends TestCase
         /* ログイン状態にする */
         $this->actingAs($user1);
 
-        /* マイページ表示 */
-        $response = $this->get('/product');
+        /* マイリスト表示 */
+        $response = $this->get('/product/?tab=mylist');
 
         /* HTML を Crawler に渡す */
         $crawler = new Crawler($response->getContent());
@@ -102,7 +102,7 @@ class MyListTest extends TestCase
     }
 
     /* 未認証の場合何も表示されない */
-    public function test_list_03() {
+    public function test_mylist_03() {
         /* ユーザ作成 */
         $user = User::factory()->create();
 

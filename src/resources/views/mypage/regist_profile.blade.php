@@ -11,8 +11,10 @@
         <div class="regist-profile-image">
             @if (session('fileName'))
                 <img class="user__img" src="{{ asset('storage/images/profile/' . session('fileName')) }}" alt="ユーザ">
+                <input type="hidden" name="fileName" value="{{ session('fileName') }}">
             @elseif ($profile && $profile->image)
                 <img class="user__img" src="{{ asset('storage/images/profile/' . $profile->image) }}" alt="ユーザ">
+                <input type="hidden" name="fileName" value="{{ $profile->image }}">
             @else
                 <div class="img-circle"></div>
             @endif
@@ -34,7 +36,7 @@
                 @if ($user)
                     <input class="profile-form__input" type="text" name="userName" value="{{ old('userName', $user->name) }}">
                 @else
-                    <input class="profile-form__input" type="text" name="name">
+                    <input class="profile-form__input" type="text" name="userName" value="old('userName')">
                 @endif
                 <p class="profile-form__error-message">
                     @error('userName')
@@ -81,7 +83,7 @@
                     @enderror
                 </p>
             </div>
-            <input type="hidden" name="fileName" value="{{ session('fileName') }}">
+            <input type="hidden" name="redirect_from" value="{{ $redirect_from }}">
             <button class="profile-form__button" type="submit" name="action" value="update">更新する</button>
         </div>
     </form>
