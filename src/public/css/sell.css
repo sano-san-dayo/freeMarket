@@ -178,7 +178,6 @@ select option:checked:not(:disabled) {
 
 .price__input {
     position: relative;
-    /* display: inline-block; */
     display: flex;
     width: 100%;
 }

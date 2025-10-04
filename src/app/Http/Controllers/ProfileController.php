@@ -84,7 +84,6 @@ class ProfileController extends Controller
     }
 
     /* プロフィール情報登録・更新 */
-    // public function store(ProfileRequest $request)
     public function store(Request $request)
     {
         /* 画像ファイル選択時 */
@@ -110,9 +109,6 @@ class ProfileController extends Controller
             $file = $request->file('image-file');
             $fileName = $file->getClientOriginalName();
             Storage::disk('public')->putFileAs($dir, $file, $fileName);
-
-            // /* プロフィール情報取得 */
-            // $profile = Profile::where('user_id', $user->id)->first();
 
             return back()->withInput()->with('fileName', $fileName);
         }

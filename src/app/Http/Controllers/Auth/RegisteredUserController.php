@@ -72,6 +72,5 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         /* プロフィール登録画面へ */
-        // return redirect('/mypage/profile');
         return redirect()->route('regist_profile');
     }}

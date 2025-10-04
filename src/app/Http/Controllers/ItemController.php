@@ -289,11 +289,6 @@ class ItemController extends Controller
 
                 // バリデーションエラーで戻る
                 return back()->withErrors($e->validator)->withInput();
-    //         return redirect()
-    //             ->back()
-    //             ->withErrors($e->validator)
-    //     ->withInput()
-    //     ->with('fileName', $previous); 
         }
     }
 }

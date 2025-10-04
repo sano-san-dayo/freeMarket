@@ -76,7 +76,6 @@ select,
     background-color: #b1b1b1;
 }
 
-/* select option[selected] { */
 select option:checked:not(:disabled) {
     background: #0073cc;
     border-radius: 5px;

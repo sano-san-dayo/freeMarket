@@ -27,9 +27,6 @@ class VerifyController extends Controller
 
     /* 認証メール再送 */
     public function resend(Request $request) {
-        // if ($request->user()->hasVerifyedEmail()) {
-        //     return redirect()->route('products.index');
-        // }
         $request->user()->sendEmailVerificationNotification();
 
         return back()->with('message', '認証メールを再送しました。');
