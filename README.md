@@ -11,7 +11,7 @@
 1. `docker-compose exec php bash`
 2. `composer install`
 3. `cp .env.example .env`
-4. .envの下記変更
+4. .envの下記変更  
 　(変更前)  
 　　DB_HOST=127.0.0.1  
 　　DB_PORT=3306  
