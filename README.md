@@ -22,10 +22,10 @@
 　　DB_HOST=mysql  
 　　DB_DATABASE=laravel_db  
 　　DB_USERNAME=laravel_user  
-　　DB_PASSWORD=laravel_pass
-    MAIL_HOST=mail
-    MAIL_PORT=1025
-    MAIL_FROM_ADDRESS=info@example.com  
+　　DB_PASSWORD=laravel_pass  
+　　MAIL_HOST=mail  
+　　MAIL_PORT=1025  
+　　MAIL_FROM_ADDRESS=info@example.com  
 5. アプリケーションキーの作成  
 ``` bash
 php artisan key:generate
