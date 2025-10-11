@@ -14,19 +14,24 @@
 4. .envの下記変更  
 　(変更前)  
 　　DB_HOST=127.0.0.1  
-　　DB_PORT=3306  
 　　DB_DATABASE=laravel  
 　　DB_USERNAME=root  
 　　DB_PASSWORD=  
 　　MAIL_HOST=mailhog  
 　　MAIL_FROM_ADDRESS=null  
-(変更後)  
+　(変更後)  
 　　DB_HOST=mysql  
 　　DB_DATABASE=laravel_db  
 　　DB_USERNAME=laravel_user  
 　　DB_PASSWORD=laravel_pass  
 　　MAIL_HOST=mail  
 　　MAIL_FROM_ADDRESS=info@example.com  
+
+　(追加)
+　　STRIPE_KEY=pk_test_51S35fN1xxq12cCbessvtTV750ocLD7UFtu7LQKY9QlP9btPxeEqXiy13Xn3D6O0oakBgwrssKAA9JXO2QrrLuapG00kkswt8Ql  
+　　STRIPE_SECRET=sk_test_51S35fN1xxq12cCbeGCIslC0dJNpMDo0wOwJ8PmzzHPrNVhBRngwWxRImXCN1uDShBd8acDScMeZn7dliezNYdlfT003QirMb4J  
+
+
 5. アプリケーションキーの作成  
 ``` bash
 php artisan key:generate
@@ -42,6 +47,12 @@ php artisan db:seed
 8. シンボリックリンク作成
 ``` bash
 php artisan storage:link
+```
+
+※ブラウザで表示した際「The stream or file "/var/www/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied The exception occurred while attempting to log: The stream or file」  
+　とのエラーが発生する場合は下記コマンドにてディレクトリの所有者を変更してください。  
+``` bash
+sudo chown -R www-data:www-data src/storage
 ```
 
 
