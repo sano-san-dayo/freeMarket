@@ -26,7 +26,6 @@
 　　DB_PASSWORD=laravel_pass  
 　　MAIL_HOST=mail  
 　　MAIL_FROM_ADDRESS=info@example.com  
-
 　(追加)  
 　　最下行に下記を追加  
 　　STRIPE_KEY=pk_test_51S35fN1xxq12cCbessvtTV750ocLD7UFtu7LQKY9QlP9btPxeEqXiy13Xn3D6O0oakBgwrssKAA9JXO2QrrLuapG00kkswt8Ql  
