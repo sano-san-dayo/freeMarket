@@ -22,6 +22,6 @@ class LoginResponse implements LoginResponseContract
         }
 
         /* メール認証済み、プロフィール登録済の場合 */
-        return redirect()->route('product');
+        return redirect()->route('index');
     }
 }

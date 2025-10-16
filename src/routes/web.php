@@ -27,7 +27,6 @@ use App\Models\User;
 Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
-Route::get('/product', [ItemController::class, 'index'])->name('product');
 Route::get('/items/{product_id}', [ItemController::class, 'getDetail'])->name('item.detail');
 
 /* ログイン済 かつ メール認証済 */
@@ -35,7 +34,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'show'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('regist_profile');
     Route::post('/mypage/regist_profile', [ProfileController::class, 'store']);
-    Route::post('/product', [ItemController::class, 'index']);
     Route::get('/purchase/{product_id}', [PurchaseController::class, 'show'])->where('product_id', '[0-9]+')->name('purchase');
     Route::get('/purchase/address/{product_id}/{paymentMethod?}', [PurchaseController::class, 'edit'])->name('purchase.address');
     Route::post('/purchase/address', [PurchaseController::class, 'update']);

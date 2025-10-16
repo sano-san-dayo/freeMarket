@@ -28,7 +28,7 @@ class PurchaseTest extends TestCase
         /* ログイン状態にする */
         $this->actingAs($user);
 
-        /* id = 4 の商品情報取得 */
+        /* id = 4 の商品情報取得 */ 
         $product = Product::find(4);
 
         /* 購入商品テーブルに product_id = 4 がないことを確認 */
@@ -65,7 +65,7 @@ class PurchaseTest extends TestCase
         $product = Product::find(4);
 
         /* 商品一覧表示 */
-        $response = $this->get('/product?tab=recommend');
+        $response = $this->get('/');
         $response->assertStatus(200);
 
         /* HTML を Crawler に渡す */
@@ -83,7 +83,7 @@ class PurchaseTest extends TestCase
         ]);
         
         /* 商品一覧再表示 */
-        $response = $this->get('/product?tab=recommend');
+        $response = $this->get('/');
         $response->assertStatus(200);
 
         /* HTML を Crawler に渡す */

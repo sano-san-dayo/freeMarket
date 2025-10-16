@@ -27,7 +27,7 @@ class ItemListTest extends TestCase
         $allProducts = $productsUser1->concat($productsUser2);
 
         /* 商品一覧画面へアクセス */
-        $response = $this->get('/product');
+        $response = $this->get('/');
 
         /* すべての商品が表示されていることを確認 */
         foreach ($allProducts as $product) {
@@ -58,7 +58,7 @@ class ItemListTest extends TestCase
         ]);
 
         /* 商品一覧取得 */
-        $response = $this->get('/product');
+        $response = $this->get('/');
 
         /* HTML を Crawler に渡す */
         $crawler = new Crawler($response->getContent());
@@ -79,7 +79,7 @@ class ItemListTest extends TestCase
         $myProducts = Product::factory()->count(3)->create(['user_id' => $user->id]);
 
         /* 商品一覧画面へアクセス */
-        $response = $this->actingAs($user)->get('/product?tab=recommend');
+        $response = $this->actingAs($user)->get('/?tab=recommend');
 
         /* 自分の商品が含まれていないことを確認 */
         foreach ($myProducts as $product) {

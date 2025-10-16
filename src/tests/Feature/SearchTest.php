@@ -30,7 +30,7 @@ class SearchTest extends TestCase
         ]);
 
         /* キーワード「未購入」で検索 */
-        $response = $this->get('/product?keyword=未購入');
+        $response = $this->get('/?keyword=未購入');
         $response->assertStatus(200);
 
         /* 一致する商品を表示することを確認 */
@@ -64,7 +64,7 @@ class SearchTest extends TestCase
         $this->actingAs($user1);
 
         /* 「おすすめ」でキーワード「未購入」で検索 */
-        $response = $this->get('/product?tab=recommend&keyword=未購入');
+        $response = $this->get('/?tab=recommend&keyword=未購入');
         $response->assertStatus(200);
 
         /* 一致する商品を表示することを確認 */
@@ -73,7 +73,7 @@ class SearchTest extends TestCase
         $response->assertDontSee('購入済所品');
 
         /* 「マイリスト」表示 */
-        $response = $this->get('/product?tab=mylist');
+        $response = $this->get('/?tab=mylist');
         $response->assertStatus(200);
 
         /* 一致する商品を表示することを確認 */

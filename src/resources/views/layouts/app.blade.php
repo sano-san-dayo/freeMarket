@@ -16,7 +16,7 @@
                     <img class="logo" src="{{ asset('images/logo.svg') }}" alt="ロゴ" onclick="location.href='/'">
                 </div>
                 <div class="header__search">
-                    <form action="/product" method="get">
+                    <form action="/" method="get">
                         @csrf
                         <input type="hidden" name="tab" value="{{ $tab ?? 'recommend' }}">
                         <input class="search-box" type="text" name="keyword" value="{{ request('keyword') }}" placeholder="なにをお探しですか?" onkeydown="if(event.key === 'Enter'){ this.form.submit }">
