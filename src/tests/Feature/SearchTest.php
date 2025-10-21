@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
@@ -12,7 +12,7 @@ use App\Models\Like;
 class SearchTest extends TestCase
 {
     /* DBクリア */
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /* 商品名で部分一致検索 */
     public function test_search_01() {

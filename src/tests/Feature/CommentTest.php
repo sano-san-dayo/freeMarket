@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
@@ -11,7 +11,7 @@ use App\Models\Product;
 class CommentTest extends TestCase
 {
     /* DBクリア */
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /* コメント送信(ログインユーザ) */
     public function test_comment_01() {

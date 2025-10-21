@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RegistUserTest extends TestCase
 {
     /* DBクリア */
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /* 名前未入力 */
     public function test_register_01() {

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
@@ -11,7 +11,7 @@ use App\Models\Product;
 class SaleTest extends TestCase
 {
     /* DBクリア */
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /* 出品商品情報登録 */
     public function test_sell_01() {

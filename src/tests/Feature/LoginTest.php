@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -11,7 +11,7 @@ use App\Models\User;
 class LoginTest extends TestCase
 {
     /* DBクリア */
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /* メールアドレス未入力 */
     public function test_login_01() {

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\DomCrawler\Crawler;
 use Tests\TestCase;
@@ -14,7 +14,7 @@ class PurchaseTest extends TestCase
 {
 
     /* DBクリア */
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /* 購入処理 */
     public function test_purchase_01() {

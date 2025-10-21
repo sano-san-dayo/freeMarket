@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\DomCrawler\Crawler;
 use Tests\TestCase;
@@ -14,7 +14,7 @@ use App\Models\Like;
 class MyListTest extends TestCase
 {
     /* DBクリア */
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /* いいねした商品だけ表示 */
     public function test_mylist_01() {

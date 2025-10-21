@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\DomCrawler\Crawler;
 use Tests\TestCase;
@@ -13,7 +13,7 @@ use App\Models\Purchase;
 class ItemListTest extends TestCase
 {
     /* DBクリア */
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /* 全商品一覧表示 */
     public function test_list_01() {

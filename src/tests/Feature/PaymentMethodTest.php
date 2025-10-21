@@ -1,7 +1,7 @@
 <?php
 
 namespace Tests\Feature;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
@@ -10,7 +10,7 @@ use App\Models\Product;
 class PaymentMethodTest extends TestCase
 {
     /* DBクリア */
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /* 必要な情報表示 */
     public function test_paymentMethod_01() {
